@@ -19,6 +19,12 @@ add_library(CemuInput
 	api/Keyboard/KeyboardControllerProvider.cpp
 	api/Keyboard/KeyboardController.cpp
 	api/Keyboard/KeyboardController.h
+
+	api/Tas/TasControllerProvider.h
+	api/Tas/TasControllerProvider.cpp
+	api/Tas/TasController.cpp
+	api/Tas/TasController.h
+
 	emulated/ProController.cpp
 	emulated/EmulatedController.h
 	emulated/EmulatedController.cpp

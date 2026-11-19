@@ -20,7 +20,7 @@ public:
 	constexpr static size_t kMaxController = 8;
 	constexpr static size_t kMaxVPADControllers = 2;
 	constexpr static size_t kMaxWPADControllers = 7;
-	
+
 	void load() noexcept;
 	bool load(size_t player_index, std::string_view filename = {});
 
@@ -29,21 +29,21 @@ public:
 
 	bool is_gameprofile_set(size_t player_index) const;
 
-	void Shutdown(); 
-	
+	void Shutdown();
+
 	EmulatedControllerPtr set_controller(EmulatedControllerPtr controller);
 	EmulatedControllerPtr set_controller(size_t player_index, EmulatedController::Type type);
 	EmulatedControllerPtr set_controller(size_t player_index, EmulatedController::Type type, const std::shared_ptr<ControllerBase>& controller);
 
 	EmulatedControllerPtr delete_controller(size_t player_index, bool delete_profile = false);
-	
+
 	EmulatedControllerPtr get_controller(size_t player_index) const;
 	std::shared_ptr<VPADController> get_vpad_controller(size_t index) const;
 	std::shared_ptr<WPADController> get_wpad_controller(size_t index) const;
 	std::pair<size_t, size_t> get_controller_count() const;
 
 	bool is_api_available(InputAPI::Type api) const { return !m_api_available[api].empty(); }
-	
+
 	ControllerProviderPtr get_api_provider(std::string_view api_name) const;
 	ControllerProviderPtr get_api_provider(InputAPI::Type api) const;
 	// will create the provider with the given settings if it doesn't exist yet

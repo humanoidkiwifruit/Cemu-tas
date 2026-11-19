@@ -63,7 +63,9 @@ InputManager::InputManager()
 #if HAS_WIIMOTE
 	create_provider<WiimoteControllerProvider>();
 #endif
-
+#if HAS_TAS
+	create_provider<TasControllerProvider>();
+#endif
 	m_update_thread_shutdown.store(false);
 	m_update_thread = std::thread(&InputManager::update_thread, this);
 }
@@ -106,7 +108,6 @@ bool InputManager::load(size_t player_index, std::string_view filename)
 		auto xmlData = FileStream::LoadIntoMemory(file_path);
 		if (!xmlData || xmlData->empty())
 			return false;
-	
 		pugi::xml_document doc;
 		if (!doc.load_buffer(xmlData->data(), xmlData->size()))
 			return false;
@@ -183,7 +184,7 @@ bool InputManager::load(size_t player_index, std::string_view filename)
 
 				// custom settings
 				controller->load(cnode);
-				
+
 
 				// mappings
 				if (const auto mappings_node = cnode.child("mappings"))
@@ -399,7 +400,7 @@ EmulatedControllerPtr InputManager::set_controller(EmulatedControllerPtr control
 
 		break;
 	}
-	
+
 	cemu_assert_debug(false);
 	return prev_controller;
 }
@@ -538,7 +539,7 @@ ControllerProviderPtr InputManager::get_api_provider(InputAPI::Type api) const
 {
 	if(!m_api_available[api].empty())
 		return *(m_api_available[api].begin());
-	
+
 	cemu_assert_debug(false);
 	return {};
 }

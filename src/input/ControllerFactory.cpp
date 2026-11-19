@@ -176,6 +176,11 @@ ControllerProviderPtr ControllerFactory::CreateControllerProvider(InputAPI::Type
 	case InputAPI::Wiimote:
 		return std::make_shared<WiimoteControllerProvider>();
 #endif
+#if HAS_TAS
+	case InputAPI::Tas:
+	std::cout << "HAS_TAS";
+		return std::make_shared<TasControllerProvider>();
+#endif
 	default:
 		cemu_assert_debug(false);
 		return {};
